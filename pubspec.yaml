@@ -18,6 +18,8 @@ dependencies:
   hooks_riverpod: ^2.3.3
   intl: ^0.18.1
   stacked_services: ^1.0.0
+  firebase_core: ^2.14.0
+  firebase_auth: ^4.6.3
 
 dev_dependencies:
   flutter_test:
