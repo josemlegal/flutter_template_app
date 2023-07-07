@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/core/services/http_service.dart';
 import 'package:flutter_template_app/domain/user/models/user_model.dart';
@@ -11,26 +11,28 @@ class UserRepositoryImplementation implements UserRepository {
       : _httpService = httpService;
 
   @override
-  Future<User> getCurrentUser() {
+  Future<User> getUser() {
     return _call(() async {
       final response = await _httpService.dio.get("/api/users/1");
 
       return User.fromJson(response.data);
-    }, errorMessage: "Could not get current user.");
+    });
   }
 }
 
-Future<T> _call<T>(Future<T> Function() function,
-    {String? errorMessage}) async {
+Future<T> _call<T>(Future<T> Function() function) async {
   try {
     return await function();
-  } on DioException catch (err) {
-    throw CustomErrorHandler.fromDioError(
-      err: err,
-      errorMessage:
-          errorMessage ?? "Something went wrong, please try again later.",
-    );
-  } catch (err) {
-    throw CustomErrorHandler.fromGenericError(message: err.toString());
+  } catch (e, stack) {
+    if (e is FirebaseException) {
+      throw CustomErrorHandler.fromFirebaseException(e,
+          stack: stack, devMessage: 'User Repository');
+    }
+
+    throw CustomErrorHandler.fromGenericError(
+        stack: stack,
+        devMessage: "UserRepo",
+        errorCode: 'user repo error code',
+        errorType: 'user-repo-error-type');
   }
 }
