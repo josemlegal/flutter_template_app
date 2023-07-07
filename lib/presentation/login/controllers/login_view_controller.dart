@@ -20,7 +20,7 @@ class LoginViewController extends ChangeNotifier {
 
   Future<void> getCurrentUser() async {
     try {
-      final currentUser = await _userRepository.getCurrentUser();
+      final currentUser = await _userRepository.getUser();
       log(currentUser.toString());
       goToHomeView(currentUser);
     } catch (err) {

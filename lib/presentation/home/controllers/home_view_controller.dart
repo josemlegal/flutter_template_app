@@ -17,7 +17,7 @@ class HomeViewController extends ChangeNotifier {
 
   Future<void> getCurrentUser() async {
     try {
-      await _userRepository.getCurrentUser();
+      await _userRepository.getUser();
       goToHomeView();
     } catch (err) {
       print(err);
