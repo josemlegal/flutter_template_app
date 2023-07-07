@@ -19,6 +19,8 @@ dependencies:
   intl: ^0.18.1
   stacked_services: ^1.0.0
   firebase_core: ^2.14.0
+  equatable: ^2.0.5
+  cloud_firestore: ^4.8.2
   firebase_auth: ^4.6.3
 
 dev_dependencies:
