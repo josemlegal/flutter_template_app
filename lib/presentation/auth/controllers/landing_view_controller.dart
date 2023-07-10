@@ -3,6 +3,7 @@ import 'package:flutter_template_app/application/services/auth_service.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/core/mixins/validation_mixin.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 enum SocialSignIn {
@@ -77,4 +78,32 @@ class LandingViewController extends ChangeNotifier with Validation {
       _snackbarService.showSnackbar(message: e.message);
     }
   }
+
+  // TODO: IMPLEMENT REAL THING
+  void updateEmail(String email) {
+    _email = email;
+    notifyListeners();
+  }
+
+  // TODO: IMPLEMENT REAL THING
+  void updatePassword(String password) {
+    _password = password;
+    notifyListeners();
+  }
+
+  // TODO: IMPLEMENT REAL THING
+  void updateConfirmPassword(String confirmPassword) {
+    _confirmPassword = confirmPassword;
+    notifyListeners();
+  }
+
+  // TODO: IMPLEMENT REAL THING
+  void navigateToForgotPassword() {
+    _navigationService.navigateTo('forgot-password-view');
+  }
 }
+
+final landingViewControllerProvider =
+    ChangeNotifierProvider<LandingViewController>((ref) {
+  return LandingViewController();
+});
