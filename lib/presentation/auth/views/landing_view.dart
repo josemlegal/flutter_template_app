@@ -19,11 +19,22 @@ class LandingView extends HookConsumerWidget {
                 _LandingViewHeader(),
                 // IMPLEMENT REAL COLORS
                 TabBar(
-                  indicatorColor: Colors.red,
+                  indicatorColor: Colors.teal,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   tabs: [
-                    Tab(child: Center(child: Text("Iniciar Sesión"))),
-                    Tab(child: Center(child: Text("Crear Cuenta"))),
+                    Tab(
+                      child: Center(
+                          child: Text(
+                        "Iniciar Sesión",
+                        style: TextStyle(color: Colors.black),
+                      )),
+                    ),
+                    Tab(
+                        child: Center(
+                            child: Text(
+                      "Crear Cuenta",
+                      style: TextStyle(color: Colors.black),
+                    ))),
                   ],
                 ),
                 SizedBox(
@@ -95,7 +106,7 @@ class _SignUpFormState extends ConsumerState<_SignUpForm> {
             decoration: InputDecoration(
               labelText: 'Contraseña',
               suffixIcon:
-                  const Icon(Icons.password_outlined, color: Colors.green),
+                  const Icon(Icons.password_outlined, color: Colors.black),
               errorText:
                   landingViewController.passwordValidationMessage.isNotEmpty
                       ? landingViewController.passwordValidationMessage
@@ -114,7 +125,7 @@ class _SignUpFormState extends ConsumerState<_SignUpForm> {
             decoration: InputDecoration(
               labelText: 'Repetir Contraseña',
               suffixIcon:
-                  const Icon(Icons.password_outlined, color: Colors.pink),
+                  const Icon(Icons.password_outlined, color: Colors.black),
               errorText: landingViewController
                       .confirmPasswordValidationMessage.isNotEmpty
                   ? landingViewController.confirmPasswordValidationMessage
@@ -169,7 +180,7 @@ class _LoginFormState extends ConsumerState<_LoginForm> {
               labelText: 'E-mail',
               suffixIcon: const Icon(
                 Icons.email_outlined,
-                color: Colors.deepOrange,
+                color: Colors.black,
               ),
               errorText: landingViewController.emailValidationMessage.isNotEmpty
                   ? landingViewController.emailValidationMessage
@@ -189,7 +200,7 @@ class _LoginFormState extends ConsumerState<_LoginForm> {
               labelText: 'Contraseña',
               suffixIcon: const Icon(
                 Icons.password_outlined,
-                color: Colors.blue,
+                color: Colors.black,
               ),
               errorText:
                   landingViewController.passwordValidationMessage.isNotEmpty
@@ -204,7 +215,7 @@ class _LoginFormState extends ConsumerState<_LoginForm> {
           child: const Text(
             'Olvidé mi Contraseña',
             style: TextStyle(
-              color: Colors.lightGreenAccent,
+              color: Colors.teal,
               fontSize: 14,
               fontWeight: FontWeight.w500,
               decoration: TextDecoration.underline,
@@ -228,24 +239,19 @@ class _LandingViewHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        const SizedBox(height: 30),
-        const Center(
+        SizedBox(height: 30),
+        Center(
           child: FlutterLogo(
             size: 100,
           ),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20),
         Text(
           "Empezá a morfar, sin culpas ;)",
-          textScaleFactor: 1,
-          style: Theme.of(context)
-              .textTheme
-              .displayLarge!
-              .copyWith(color: Colors.black, fontWeight: FontWeight.w700),
         ),
-        const SizedBox(height: 50),
+        SizedBox(height: 50),
       ],
     );
   }

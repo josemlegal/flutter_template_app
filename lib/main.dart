@@ -26,7 +26,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
       ),
       debugShowCheckedModeBanner: false,
       navigatorKey: services.StackedService.navigatorKey,
