@@ -10,12 +10,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(
-    const ProviderScope(child: MainApp()),
-  );
   await dotenv.load();
   setupLocator();
   setupSnackbarUi();
+  runApp(
+    const ProviderScope(child: MainApp()),
+  );
 }
 
 class MainApp extends StatelessWidget {

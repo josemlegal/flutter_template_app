@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/data/auth/data_sources/auth_data_source.dart';
 import 'package:flutter_template_app/domain/auth/repositories/auth_repository.dart';
 
@@ -7,10 +8,10 @@ class AuthRepositoryImplementation implements AuthRepository {
   final AuthDataSource _dataSource;
 
   AuthRepositoryImplementation({
-    required FirebaseAuth auth,
-    required AuthDataSource dataSource,
-  })  : _auth = auth,
-        _dataSource = dataSource;
+    FirebaseAuth? auth,
+    AuthDataSource? dataSource,
+  })  : _auth = auth ?? FirebaseAuth.instance,
+        _dataSource = dataSource ?? locator<AuthDataSource>();
 
   @override
   User? get currentUser => _auth.currentUser;

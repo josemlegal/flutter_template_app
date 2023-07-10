@@ -6,8 +6,8 @@ class AuthDataSourceRemote implements AuthDataSource {
   final FirebaseAuth _auth;
 
   AuthDataSourceRemote({
-    required FirebaseAuth auth,
-  }) : _auth = auth;
+    FirebaseAuth? auth,
+  }) : _auth = auth ?? FirebaseAuth.instance;
 
   @override
   Future<void> signInWithEmail(
