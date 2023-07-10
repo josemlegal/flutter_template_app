@@ -31,7 +31,7 @@ class LandingViewController extends ChangeNotifier with Validation {
         _authService = authService;
 
   //Flags
-  bool? isLoading;
+  bool isLoading = false;
 
   String _email = '';
   String _emailValidationMessage = '';
@@ -101,6 +101,11 @@ class LandingViewController extends ChangeNotifier with Validation {
   // TODO: IMPLEMENT REAL THING
   void navigateToForgotPassword() {
     _navigationService.navigateTo('forgot-password-view');
+  }
+
+  // TODO: IMPLEMENT REAL THING
+  Future<void> signinWithOAuth({required SocialSignIn socialSignIn}) async {
+    _navigationService.navigateTo('home-view');
   }
 }
 

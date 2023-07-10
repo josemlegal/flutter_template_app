@@ -9,16 +9,17 @@ class LandingView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const DefaultTabController(
+    final landingViewController = ref.read(landingViewControllerProvider);
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                _LandingViewHeader(),
+                const _LandingViewHeader(),
                 // IMPLEMENT REAL COLORS
-                TabBar(
+                const TabBar(
                   indicatorColor: Colors.teal,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   tabs: [
@@ -37,12 +38,32 @@ class LandingView extends HookConsumerWidget {
                     ))),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 400,
                   child: TabBarView(children: [
                     _LoginForm(),
                     _SignUpForm(),
                   ]),
+                ),
+                _LandingButton(
+                  buttonLabel: 'Iniciar sesión con Google',
+                  onPressed: landingViewController.isLoading
+                      ? null
+                      : () => landingViewController.signinWithOAuth(
+                          socialSignIn: SocialSignIn.GoogleSignIn),
+                  buttonLogo: 'assets/images/apple_logo.png',
+                  textColor: Colors.black,
+                ),
+                const SizedBox(height: 20),
+                // TODO : CHECK IF LOGIN WITH APPLE IS AVAILABLE
+                _LandingButton(
+                  buttonLabel: 'Iniciar sesión con Apple',
+                  onPressed: landingViewController.isLoading
+                      ? null
+                      : () => landingViewController.signinWithOAuth(
+                          socialSignIn: SocialSignIn.AppleSignIn),
+                  buttonLogo: 'assets/images/apple_logo.png',
+                  textColor: Colors.black,
                 ),
               ],
             ),
@@ -70,7 +91,7 @@ class _SignUpFormState extends ConsumerState<_SignUpForm> {
     final confirmPassord =
         useTextEditingController(text: landingViewController.confirmPassword);
 
-    if (landingViewController.isLoading ?? false) {
+    if (landingViewController.isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
@@ -160,7 +181,7 @@ class _LoginFormState extends ConsumerState<_LoginForm> {
     final password = useTextEditingController(text: 'pass');
     final landingViewController = ref.read(landingViewControllerProvider);
 
-    if (landingViewController.isLoading ?? false) {
+    if (landingViewController.isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
@@ -253,6 +274,61 @@ class _LandingViewHeader extends StatelessWidget {
         ),
         SizedBox(height: 50),
       ],
+    );
+  }
+}
+
+class _LandingButton extends StatelessWidget {
+  final String buttonLabel;
+  final VoidCallback? onPressed;
+  final String? buttonLogo;
+  final Color? textColor;
+
+  const _LandingButton({
+    required this.buttonLabel,
+    required this.onPressed,
+    this.buttonLogo,
+    this.textColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: 40,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.all(0),
+          side: const BorderSide(color: Colors.indigo),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        ),
+        onPressed: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (buttonLogo != null)
+              Image.asset(
+                buttonLogo!,
+                width: 20,
+                height: 20,
+              ),
+            const SizedBox(width: 10),
+            Padding(
+              padding: const EdgeInsets.only(top: 2.0),
+              child: Text(
+                buttonLabel,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
