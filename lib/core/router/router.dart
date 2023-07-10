@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../../presentation/views.dart';
 
 class Router {
-  static const loginView = '/login-view';
+  static const landingView = '/landing-view';
   static const homeView = '/home-view';
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case loginView:
-        return MaterialPageRoute(builder: (_) => LoginView());
+      case landingView:
+        return MaterialPageRoute(builder: (_) => const LandingView());
       case homeView:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
@@ -16,6 +16,7 @@ class Router {
             currentUser: args['currentUser'],
           ),
         );
+
       default:
         return null;
     }

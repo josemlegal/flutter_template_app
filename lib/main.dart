@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/core/dependency_injection/setup_snackbar_ui.dart';
 import 'package:flutter_template_app/core/router/router.dart' as router;
+import 'package:stacked_services/stacked_services.dart' as services;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
@@ -28,7 +29,8 @@ class MainApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: router.Router.loginView,
+      navigatorKey: services.StackedService.navigatorKey,
+      initialRoute: router.Router.landingView,
       onGenerateRoute: router.Router.generateRoute,
     );
   }

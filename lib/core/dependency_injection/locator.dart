@@ -9,9 +9,7 @@ void setupLocator() {
     () => HttpService(),
   );
 
-  locator.registerLazySingleton<NavigationService>(
-    () => NavigationService(),
-  );
+  locator.registerLazySingleton<NavigationService>(() => NavigationService());
 
   locator.registerLazySingleton<DialogService>(
     () => DialogService(),

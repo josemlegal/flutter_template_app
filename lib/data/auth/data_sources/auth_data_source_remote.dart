@@ -45,4 +45,7 @@ class AuthDataSourceRemote implements AuthDataSource {
       );
     }
   }
+
+  @override
+  String get userId => throw UnimplementedError();
 }

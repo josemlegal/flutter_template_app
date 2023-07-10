@@ -9,29 +9,32 @@ class LandingView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _LandingViewHeader(),
-              // IMPLEMENT REAL COLORS
-              TabBar(
-                indicatorColor: Colors.red,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                tabs: [
-                  Tab(child: Center(child: Text("Iniciar Sesión"))),
-                  Tab(child: Center(child: Text("Crear Cuenta"))),
-                ],
-              ),
-              SizedBox(
-                height: 400,
-                child: TabBarView(children: [
-                  _LoginForm(),
-                  _SignUpForm(),
-                ]),
-              ),
-            ],
+    return const DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _LandingViewHeader(),
+                // IMPLEMENT REAL COLORS
+                TabBar(
+                  indicatorColor: Colors.red,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  tabs: [
+                    Tab(child: Center(child: Text("Iniciar Sesión"))),
+                    Tab(child: Center(child: Text("Crear Cuenta"))),
+                  ],
+                ),
+                SizedBox(
+                  height: 400,
+                  child: TabBarView(children: [
+                    _LoginForm(),
+                    _SignUpForm(),
+                  ]),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -140,11 +143,10 @@ class _LoginForm extends StatefulHookConsumerWidget {
 }
 
 class _LoginFormState extends ConsumerState<_LoginForm> {
-  final email = useTextEditingController(text: 'email');
-  final password = useTextEditingController(text: 'pass');
-
   @override
   Widget build(BuildContext context) {
+    final email = useTextEditingController(text: 'email');
+    final password = useTextEditingController(text: 'pass');
     final landingViewController = ref.read(landingViewControllerProvider);
 
     if (landingViewController.isLoading ?? false) {
@@ -229,10 +231,9 @@ class _LandingViewHeader extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 30),
-        Center(
-          child: Image.asset(
-            'assets/images/mf_logo_black_lg.png',
-            width: 200,
+        const Center(
+          child: FlutterLogo(
+            size: 100,
           ),
         ),
         const SizedBox(height: 20),

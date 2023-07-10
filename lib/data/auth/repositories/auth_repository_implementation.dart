@@ -1,39 +1,31 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_template_app/data/auth/data_sources/auth_data_source.dart';
 import 'package:flutter_template_app/domain/auth/repositories/auth_repository.dart';
 
 class AuthRepositoryImplementation implements AuthRepository {
   final FirebaseAuth _auth;
+  final AuthDataSource _dataSource;
 
   AuthRepositoryImplementation({
     required FirebaseAuth auth,
-  }) : _auth = auth;
+    required AuthDataSource dataSource,
+  })  : _auth = auth,
+        _dataSource = dataSource;
 
   @override
   User? get currentUser => _auth.currentUser;
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-    } catch (e) {
-      print(e);
-      throw Exception('Error al iniciar sesion');
-    }
-  }
-
-  @override
   Future<void> signInWithEmail(
-      {required String email, required String password}) {
-    // TODO: implement signInWithEmail
-    throw UnimplementedError();
-  }
+          {required String email, required String password}) async =>
+      await _call(
+          () => _dataSource.signInWithEmail(email: email, password: password));
 
   @override
   Future<void> signUpWithEmail(
-      {required String email, required String password}) {
-    // TODO: implement signUpWithEmail
-    throw UnimplementedError();
-  }
+          {required String email, required String password}) async =>
+      await _call(
+          () => _dataSource.signUpWithEmail(email: email, password: password));
 }
 
 Future<T> _call<T>(Future<T> Function() function) async {

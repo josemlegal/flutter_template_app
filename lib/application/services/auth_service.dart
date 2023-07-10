@@ -9,25 +9,18 @@ abstract class AuthService {
     required String email,
     required String password,
   });
-  // Future<bool> signInWithOAuth({required SocialSignIn signInType});
 }
 
 class AuthServiceImplementation implements AuthService {
   final AuthRepository _authRepository;
   final UserRepository _userRepository;
-  // final AnalyticsApi _analyticsApi;
-  // final SharedPreferenceApi _sharedPreferenceApi;
 
   AuthServiceImplementation({
     AuthRepository? authRepository,
     UserRepository? userRepository,
-    // SharedPreferenceApi? sharedPreferenceApi,
-    // AnalyticsApi? analyticsApi,
   })  : _authRepository = authRepository ?? locator<AuthRepository>(),
         _userRepository = userRepository ?? locator<UserRepository>();
-  // this._sharedPreferenceApi =
-  //     sharedPreferenceApi ?? locator<SharedPreferenceApi>(),
-  // this._analyticsApi = analyticsApi ?? locator<AnalyticsApi>(),
+
   @override
   Future<bool> signInWithEmailAndPassword(
       {required SignIn signInType,
@@ -35,14 +28,7 @@ class AuthServiceImplementation implements AuthService {
       required String password}) async {
     if (signInType == SignIn.Signup) {
       await _authRepository.signUpWithEmail(email: email, password: password);
-      // final utmData = this._sharedPreferenceApi.getUTMValues();
-      // await this._analyticsApi.logCreatedAccount(
-      //       registrationLabel: 'email',
-      //       userId: _authRepository.userId,
-      //       utm_source: utmData['utm_source'],
-      //       utm_medium: utmData['utm_medium'],
-      //       utm_campaign: utmData['utm_campaign'],
-      //     );
+
       return false;
     }
     await _authRepository.signInWithEmail(email: email, password: password);

@@ -3,6 +3,7 @@ import 'package:flutter_template_app/application/services/auth_service.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/core/mixins/validation_mixin.dart';
+import 'package:flutter_template_app/core/router/router.dart' as Router;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -22,12 +23,12 @@ class LandingViewController extends ChangeNotifier with Validation {
   final AuthService _authService;
 
   LandingViewController({
-    NavigationService? navigationService,
-    SnackbarService? snackbarService,
-    AuthService? authService,
-  })  : _navigationService = navigationService ?? locator<NavigationService>(),
-        _snackbarService = snackbarService ?? locator<SnackbarService>(),
-        _authService = authService ?? locator<AuthService>();
+    required NavigationService navigationService,
+    required SnackbarService snackbarService,
+    required AuthService authService,
+  })  : _navigationService = navigationService,
+        _snackbarService = snackbarService,
+        _authService = authService;
 
   //Flags
   bool? isLoading;
@@ -69,9 +70,9 @@ class LandingViewController extends ChangeNotifier with Validation {
       final userExists = await _authService.signInWithEmailAndPassword(
           signInType: signInType, email: email, password: password);
       if (!userExists) {
-        _navigationService.clearStackAndShow('home-view');
+        _navigationService.clearStackAndShow(Router.Router.landingView);
       } else {
-        _navigationService.clearStackAndShow('login-view');
+        _navigationService.clearStackAndShow(Router.Router.homeView);
       }
     } on CustomError catch (e) {
       isLoading = false;
@@ -104,6 +105,12 @@ class LandingViewController extends ChangeNotifier with Validation {
 }
 
 final landingViewControllerProvider =
-    ChangeNotifierProvider<LandingViewController>((ref) {
-  return LandingViewController();
-});
+    ChangeNotifierProvider<LandingViewController>(
+  (ref) {
+    return LandingViewController(
+      navigationService: locator<NavigationService>(),
+      snackbarService: locator<SnackbarService>(),
+      authService: locator<AuthService>(),
+    );
+  },
+);

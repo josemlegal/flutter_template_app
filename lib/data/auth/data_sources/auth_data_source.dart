@@ -1,5 +1,5 @@
 abstract class AuthDataSource {
-  // String get userId;
+  String get userId;
 
   // String? get userDisplayName;
 
