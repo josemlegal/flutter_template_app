@@ -3,7 +3,7 @@ abstract class AuthDataSource {
 
   // String? get userDisplayName;
 
-  // bool get userIsSignedIn;
+  bool get userIsSignedIn;
 
   // bool get isEmailVerified;
 
@@ -19,8 +19,8 @@ abstract class AuthDataSource {
       {required String email, required String password});
   Future<void> signUpWithEmail(
       {required String email, required String password});
-  // Future<void> signInWithGoogle();
-  // Future<String> signInWithApple();
+  Future<void> signInWithGoogle();
+  Future<String> signInWithApple();
 
   // Future<void> deleteUserAccount();
 }
