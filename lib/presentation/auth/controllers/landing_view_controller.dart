@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template_app/application/services/auth_service.dart';
+import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/core/mixins/validation_mixin.dart';
@@ -21,14 +22,17 @@ class LandingViewController extends ChangeNotifier with Validation {
   final NavigationService _navigationService;
   final SnackbarService _snackbarService;
   final AuthService _authService;
+  final SharedPreferenceApi _sharedPreferenceApi;
 
   LandingViewController({
     required NavigationService navigationService,
     required SnackbarService snackbarService,
     required AuthService authService,
+    required SharedPreferenceApi sharedPreferenceApi,
   })  : _navigationService = navigationService,
         _snackbarService = snackbarService,
-        _authService = authService;
+        _authService = authService,
+        _sharedPreferenceApi = sharedPreferenceApi;
 
   //Flags
   bool isLoading = false;
@@ -80,32 +84,42 @@ class LandingViewController extends ChangeNotifier with Validation {
     }
   }
 
-  // TODO: IMPLEMENT REAL THING
   void updateEmail(String email) {
     _email = email;
     notifyListeners();
   }
 
-  // TODO: IMPLEMENT REAL THING
   void updatePassword(String password) {
     _password = password;
     notifyListeners();
   }
 
-  // TODO: IMPLEMENT REAL THING
   void updateConfirmPassword(String confirmPassword) {
     _confirmPassword = confirmPassword;
     notifyListeners();
   }
 
-  // TODO: IMPLEMENT REAL THING
-  void navigateToForgotPassword() {
-    _navigationService.navigateTo('forgot-password-view');
+  Future<void> signinWithOAuth(SocialSignIn signInType) async {
+    isLoading = true;
+    try {
+      final userHasRegisteredBefore =
+          await _authService.signInWithOAuth(signInType: signInType);
+
+      if (!userHasRegisteredBefore) {
+        await _sharedPreferenceApi.setShowHomeOnboarding(val: true);
+        await _sharedPreferenceApi.setShowSearchOnboarding(val: true);
+        _navigationService.clearStackAndShow(Router.Router.randomView);
+      } else {
+        _navigationService.clearStackAndShow(Router.Router.homeView);
+      }
+    } on CustomError catch (e) {
+      isLoading = false;
+      _snackbarService.showSnackbar(message: e.message);
+    }
   }
 
-  // TODO: IMPLEMENT REAL THING
-  Future<void> signinWithOAuth({required SocialSignIn socialSignIn}) async {
-    _navigationService.navigateTo('home-view');
+  void navigateToForgotPassword() {
+    _navigationService.navigateTo('forgot-password-view');
   }
 }
 
@@ -116,6 +130,7 @@ final landingViewControllerProvider =
       navigationService: locator<NavigationService>(),
       snackbarService: locator<SnackbarService>(),
       authService: locator<AuthService>(),
+      sharedPreferenceApi: locator<SharedPreferenceApi>(),
     );
   },
 );

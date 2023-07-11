@@ -49,8 +49,8 @@ class LandingView extends HookConsumerWidget {
                   buttonLabel: 'Iniciar sesión con Google',
                   onPressed: landingViewController.isLoading
                       ? null
-                      : () => landingViewController.signinWithOAuth(
-                          socialSignIn: SocialSignIn.GoogleSignIn),
+                      : () => landingViewController
+                          .signinWithOAuth(SocialSignIn.GoogleSignIn),
                   buttonLogo: 'assets/images/apple_logo.png',
                   textColor: Colors.black,
                 ),
@@ -60,8 +60,8 @@ class LandingView extends HookConsumerWidget {
                   buttonLabel: 'Iniciar sesión con Apple',
                   onPressed: landingViewController.isLoading
                       ? null
-                      : () => landingViewController.signinWithOAuth(
-                          socialSignIn: SocialSignIn.AppleSignIn),
+                      : () => landingViewController
+                          .signinWithOAuth(SocialSignIn.AppleSignIn),
                   buttonLogo: 'assets/images/apple_logo.png',
                   textColor: Colors.black,
                 ),
