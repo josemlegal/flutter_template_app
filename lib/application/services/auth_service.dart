@@ -9,6 +9,7 @@ abstract class AuthService {
     required String email,
     required String password,
   });
+  Future<bool> signInWithOAuth({required SocialSignIn signInType});
 }
 
 class AuthServiceImplementation implements AuthService {
@@ -34,5 +35,19 @@ class AuthServiceImplementation implements AuthService {
     await _authRepository.signInWithEmail(email: email, password: password);
     await _userRepository.getUser();
     return true;
+  }
+
+  @override
+  Future<bool> signInWithOAuth({required SocialSignIn signInType}) async {
+    if (signInType == SocialSignIn.GoogleSignIn) {
+      await _authRepository.signInWithGoogle();
+    } else {
+      await _authRepository.signInWithApple();
+    }
+    final userExists = await _userRepository.getUser();
+    if (userExists != null) {
+      return true;
+    }
+    return false;
   }
 }
