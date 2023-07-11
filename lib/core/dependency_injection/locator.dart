@@ -1,4 +1,5 @@
 import 'package:flutter_template_app/application/services/auth_service.dart';
+import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
 import 'package:flutter_template_app/core/services/http_service.dart';
 import 'package:flutter_template_app/data/auth/data_sources/auth_data_source.dart';
 import 'package:flutter_template_app/data/auth/data_sources/auth_data_source_remote.dart';
@@ -12,6 +13,9 @@ import 'package:stacked_services/stacked_services.dart';
 GetIt locator = GetIt.instance;
 
 void setupLocator() {
+  locator.registerLazySingleton<SharedPreferenceApi>(
+      () => SharedPreferencesService());
+
   locator.registerLazySingleton<HttpService>(
     () => HttpService(),
   );
