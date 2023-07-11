@@ -6,5 +6,8 @@ abstract class AuthRepository {
   Future<void> signInWithEmail(
       {required String email, required String password});
 
+  Future<void> signInWithGoogle();
+  Future<void> signInWithApple();
+
   auth.User? get currentUser;
 }
