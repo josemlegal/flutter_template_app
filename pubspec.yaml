@@ -13,6 +13,7 @@ dependencies:
   animate_do: ^3.0.2
   dio: ^5.1.1
   flutter_riverpod: ^2.3.6
+  shared_preferences: ^2.0.12
   flutter_svg: ^2.0.6
   get_it: ^7.2.0
   hooks_riverpod: ^2.3.3
@@ -22,6 +23,9 @@ dependencies:
   equatable: ^2.0.5
   cloud_firestore: ^4.8.2
   firebase_auth: ^4.6.3
+  cloud_functions: ^4.0.7
+  google_sign_in: ^5.2.2
+  sign_in_with_apple: ^4.2.0
 
 dev_dependencies:
   flutter_test:
