@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_template_app/application/services/auth_service.dart';
 import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
@@ -105,10 +107,10 @@ class LandingViewController extends ChangeNotifier with Validation {
     isLoading = true;
     try {
       // TODO: REPLACE THIS WITH THE REAL CHECK
-      final userHasRegisteredBefore = false;
-      // final userHasRegisteredBefore =
-      //     await _authService.signInWithOAuth(signInType: signInType);
-
+      // final userHasRegisteredBefore = false;
+      final userHasRegisteredBefore =
+          await _authService.signInWithOAuth(signInType: signInType);
+      log("Estoy en el LandinView Controller");
       if (!userHasRegisteredBefore) {
         await _sharedPreferenceApi.setShowHomeOnboarding(val: true);
         await _sharedPreferenceApi.setShowSearchOnboarding(val: true);

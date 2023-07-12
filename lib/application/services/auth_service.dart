@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/domain/auth/repositories/auth_repository.dart';
 import 'package:flutter_template_app/domain/user/repositories/user_repository.dart';
@@ -33,22 +35,24 @@ class AuthServiceImplementation implements AuthService {
       return false;
     }
     await _authRepository.signInWithEmail(email: email, password: password);
-    await _userRepository.getUser();
+    await _userRepository.getUser(_authRepository.userId);
     return true;
   }
 
   @override
   Future<bool> signInWithOAuth({required SocialSignIn signInType}) async {
     if (signInType == SocialSignIn.GoogleSignIn) {
+      log('Google Sign In');
       await _authRepository.signInWithGoogle();
     } else {
       await _authRepository.signInWithApple();
     }
     // TODO: Check if user exists in database
-    // final userExists = await _userRepository.getUser();
-    // if (userExists != null) {
-    return true;
-    // }
-    // return false;
+    final userExists = await _userRepository.getUser(_authRepository.userId);
+    log(userExists.toJson().toString());
+    if (userExists.name != null) {
+      return true;
+    }
+    return false;
   }
 }

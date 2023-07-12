@@ -43,6 +43,7 @@ void setupLocator() {
   locator.registerLazySingleton<UserRepository>(
     () => UserRepositoryImplementation(
       httpService: locator<HttpService>(),
+      authRepository: locator<AuthRepository>(),
     ),
   );
 

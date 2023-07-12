@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/data/user/repositories/user_repository_implementation.dart';
+import 'package:flutter_template_app/domain/user/models/user_model.dart';
 import 'package:flutter_template_app/domain/user/repositories/user_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -8,6 +9,12 @@ import 'package:stacked_services/stacked_services.dart';
 class HomeViewController extends ChangeNotifier {
   final UserRepository _userRepository;
   final NavigationService _navigationService;
+
+  // States
+  final User? _currentUser = null;
+
+  // Getters
+  User get currentUser => _currentUser!;
 
   HomeViewController({
     required NavigationService navigationService,
@@ -17,7 +24,7 @@ class HomeViewController extends ChangeNotifier {
 
   Future<void> getCurrentUser() async {
     try {
-      await _userRepository.getUser();
+      await _userRepository.getUser(_userRepository.userId);
       goToHomeView();
     } catch (err) {
       print(err);
