@@ -13,7 +13,17 @@ class UserRepositoryImplementation implements UserRepository {
   @override
   Future<User> getUser() {
     return _call(() async {
-      final response = await _httpService.dio.get("/api/users/1");
+      final response = await _httpService.dio.get("/api/users/");
+
+      return User.fromJson(response.data);
+    });
+  }
+
+  @override
+  Future<User> createNewUser(User user) {
+    return _call(() async {
+      final response =
+          await _httpService.dio.post("/api/users", data: user.toJson());
 
       return User.fromJson(response.data);
     });

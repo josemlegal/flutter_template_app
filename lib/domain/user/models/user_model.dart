@@ -1,41 +1,41 @@
 class User {
-  final int id;
+  final int? id;
   final String name;
   final String email;
-  final String? password;
+  final String? firebaseId;
 
   User({
-    required this.id,
+    this.id,
     required this.name,
     required this.email,
-    required this.password,
+    this.firebaseId,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         name: json["name"],
         email: json["email"],
-        password: json["password"],
+        firebaseId: json["firebaseId"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "email": email,
-        "password": password,
+        "firebaseId": firebaseId,
       };
 
   User copyWith({
     int? id,
     String? name,
     String? email,
-    String? password,
+    String? firebaseId,
   }) {
     return User(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
-      password: password ?? this.password,
+      firebaseId: firebaseId ?? this.firebaseId,
     );
   }
 }
