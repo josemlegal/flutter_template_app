@@ -5,6 +5,7 @@ class Router {
   static const landingView = '/landing-view';
   static const homeView = '/home-view';
   static const randomView = '/random-view';
+  static const onboardingView = '/onboarding-view';
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -19,6 +20,9 @@ class Router {
         );
       case randomView:
         return MaterialPageRoute(builder: (_) => const RandomView());
+
+      case onboardingView:
+        return MaterialPageRoute(builder: (_) => const FormView());
 
       default:
         return null;
