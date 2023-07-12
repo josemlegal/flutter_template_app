@@ -26,6 +26,12 @@ class AuthRepositoryImplementation implements AuthRepository {
   User? get currentUser => _auth.currentUser;
 
   @override
+  String? get userEmail => _auth.currentUser?.email;
+
+  @override
+  String get userId => _auth.currentUser!.uid;
+
+  @override
   Future<void> signInWithEmail(
           {required String email, required String password}) async =>
       await _call(
