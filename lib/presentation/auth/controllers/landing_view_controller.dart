@@ -73,8 +73,9 @@ class LandingViewController extends ChangeNotifier with Validation {
     try {
       final userExists = await _authService.signInWithEmailAndPassword(
           signInType: signInType, email: email, password: password);
+
       if (!userExists) {
-        _navigationService.clearStackAndShow(Router.Router.landingView);
+        _navigationService.clearStackAndShow(Router.Router.onboardingView);
       } else {
         _navigationService.clearStackAndShow(Router.Router.homeView);
       }
@@ -100,15 +101,18 @@ class LandingViewController extends ChangeNotifier with Validation {
   }
 
   Future<void> signinWithOAuth(SocialSignIn signInType) async {
+    await _sharedPreferenceApi.init();
     isLoading = true;
     try {
-      final userHasRegisteredBefore =
-          await _authService.signInWithOAuth(signInType: signInType);
+      // TODO: REPLACE THIS WITH THE REAL CHECK
+      final userHasRegisteredBefore = false;
+      // final userHasRegisteredBefore =
+      //     await _authService.signInWithOAuth(signInType: signInType);
 
       if (!userHasRegisteredBefore) {
         await _sharedPreferenceApi.setShowHomeOnboarding(val: true);
         await _sharedPreferenceApi.setShowSearchOnboarding(val: true);
-        _navigationService.clearStackAndShow(Router.Router.randomView);
+        _navigationService.clearStackAndShow(Router.Router.onboardingView);
       } else {
         _navigationService.clearStackAndShow(Router.Router.homeView);
       }

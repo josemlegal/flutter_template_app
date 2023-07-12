@@ -44,10 +44,11 @@ class AuthServiceImplementation implements AuthService {
     } else {
       await _authRepository.signInWithApple();
     }
-    final userExists = await _userRepository.getUser();
-    if (userExists != null) {
-      return true;
-    }
-    return false;
+    // TODO: Check if user exists in database
+    // final userExists = await _userRepository.getUser();
+    // if (userExists != null) {
+    return true;
+    // }
+    // return false;
   }
 }

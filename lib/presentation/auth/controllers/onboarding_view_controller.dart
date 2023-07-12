@@ -51,9 +51,9 @@ class OnboardingViewController extends ChangeNotifier with Validation {
     _nameValidationMessage = validateName(name);
 
     if (_nameValidationMessage.isEmpty) {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 
   Future<void> submitForm() async {
@@ -70,7 +70,7 @@ class OnboardingViewController extends ChangeNotifier with Validation {
       firebaseId: _authRepository.userId,
     );
 
-    log(newUserModel.toString());
+    log(newUserModel.toJson().toString());
 
     // await _navigationService.navigateTo(
     //   Routes.initialPlanView,

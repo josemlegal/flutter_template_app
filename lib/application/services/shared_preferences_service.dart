@@ -34,16 +34,14 @@ abstract class SharedPreferenceApi {
 }
 
 class SharedPreferencesService implements SharedPreferenceApi {
-  SharedPreferencesService({SharedPreferences? preferences})
-      : this._preferences = preferences;
-
   SharedPreferences? _preferences;
+
+  SharedPreferencesService({SharedPreferences? preferences})
+      : _preferences = preferences;
 
   @override
   Future<void> init() async {
-    if (this._preferences == null) {
-      this._preferences = await this.getInstance();
-    }
+    _preferences ??= await getInstance();
   }
 
   @override
