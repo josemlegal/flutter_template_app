@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_template_app/presentation/auth/controllers/onboarding_view_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FormView extends StatefulHookConsumerWidget {
@@ -26,7 +27,7 @@ class _FormViewState extends ConsumerState<FormView> {
             Center(
               child: SizedBox.fromSize(
                 size: const Size(200, 200),
-                child: _FormWidget(),
+                child: const _FormWidget(),
               ),
             ),
           ],
@@ -37,25 +38,25 @@ class _FormViewState extends ConsumerState<FormView> {
 }
 
 class _FormWidget extends HookConsumerWidget {
-  _FormWidget({Key? key}) : super(key: key);
-
-  final _formKey = GlobalKey<FormState>();
+  const _FormWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final formKey = ref.read(onboardingViewProvider).formKey;
+    final onboardingViewController = ref.read(onboardingViewProvider);
     return Form(
-      key: _formKey,
+      key: formKey,
       child: Column(children: [
         TextFormField(
-          // TODO: REPLACE WITH FUNCTION IN THE CONTROLLER
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-            return null;
+          onChanged: (value) {
+            onboardingViewController.updateName(value);
           },
         ),
-        ElevatedButton(onPressed: () {}, child: const Text('SUBMIT'))
+        ElevatedButton(
+            onPressed: () {
+              onboardingViewController.submitForm();
+            },
+            child: const Text('SUBMIT'))
       ]),
     );
   }
