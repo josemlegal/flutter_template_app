@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/core/services/http_service.dart';
@@ -22,6 +24,7 @@ class UserRepositoryImplementation implements UserRepository {
   Future<User> getUser(String id) {
     return _call(() async {
       final response = await _httpService.dio.get("/api/users/$id");
+      log(response.toString());
 
       return User.fromJson(response.data);
     });

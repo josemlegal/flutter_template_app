@@ -56,15 +56,18 @@ class OnboardingViewController extends ChangeNotifier with Validation {
     _nameValidationMessage = validateName(name);
 
     if (_nameValidationMessage.isEmpty) {
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
   Future<void> submitForm() async {
     bool canSubmit = validateInfoForm();
 
+    log(_name);
+
     if (!canSubmit) {
+      log('no puedo submit');
       notifyListeners();
       return;
     }
@@ -78,7 +81,7 @@ class OnboardingViewController extends ChangeNotifier with Validation {
     log(newUserModel.toJson().toString());
     await _userRepository.createNewUser(newUserModel);
     // TODO: GET THE NEW USER FROM THE DATABASE
-    final currentUser = await _userRepository.getUser(newUserModel.firebaseId!);
+    final currentUser = await _userRepository.getUser(_authRepository.userId);
 
     await _navigationService.navigateTo(
       router.Router.homeView,

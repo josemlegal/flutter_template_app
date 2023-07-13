@@ -44,15 +44,18 @@ class AuthServiceImplementation implements AuthService {
     if (signInType == SocialSignIn.GoogleSignIn) {
       log('Google Sign In');
       await _authRepository.signInWithGoogle();
+      log('despues del sign in');
     } else {
       await _authRepository.signInWithApple();
     }
     // TODO: Check if user exists in database
+    log('antes de checkear la db');
     final userExists = await _userRepository.getUser(_authRepository.userId);
+    log('despues de la checkear la db');
     log(userExists.toJson().toString());
-    if (userExists.name != null) {
-      return true;
+    if (userExists.name == '') {
+      return false;
     }
-    return false;
+    return true;
   }
 }

@@ -103,6 +103,7 @@ class LandingViewController extends ChangeNotifier with Validation {
   }
 
   Future<void> signinWithOAuth(SocialSignIn signInType) async {
+    // TODO: FIND A BETTER WAY TO INITIALIZE THIS
     await _sharedPreferenceApi.init();
     isLoading = true;
     try {
