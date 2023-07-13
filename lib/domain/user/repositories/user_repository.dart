@@ -5,4 +5,5 @@ abstract class UserRepository {
   Future<User> createNewUser(User user);
 
   String get userId;
+  User get currentUser;
 }

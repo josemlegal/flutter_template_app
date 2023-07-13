@@ -17,16 +17,21 @@ class UserRepositoryImplementation implements UserRepository {
       : _httpService = httpService,
         _authRepository = authRepository;
 
+  // TODO: Remove this, this shouldn't be a var
+  var _currentUser;
+
   @override
   String get userId => _authRepository.userId;
+  @override
+  User get currentUser => _currentUser;
 
   @override
   Future<User> getUser(String id) {
     return _call(() async {
       final response = await _httpService.dio.get("/api/users/$id");
       log(response.toString());
-
-      return User.fromJson(response.data);
+      _currentUser = User.fromJson(response.data);
+      return _currentUser;
     });
   }
 
