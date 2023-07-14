@@ -18,7 +18,6 @@ class LandingView extends HookConsumerWidget {
             child: Column(
               children: [
                 const _LandingViewHeader(),
-                // IMPLEMENT REAL COLORS
                 const TabBar(
                   indicatorColor: Colors.teal,
                   padding: EdgeInsets.symmetric(horizontal: 16),
@@ -39,7 +38,7 @@ class LandingView extends HookConsumerWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 400,
+                  height: 360,
                   child: TabBarView(children: [
                     _LoginForm(),
                     _SignUpForm(),
@@ -269,10 +268,6 @@ class _LandingViewHeader extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20),
-        Text(
-          "Empezá a morfar, sin culpas ;)",
-        ),
-        SizedBox(height: 50),
       ],
     );
   }
