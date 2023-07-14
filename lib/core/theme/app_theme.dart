@@ -6,7 +6,7 @@ class AppTheme {
   ThemeData getTheme() => ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.teal,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontFamily: 'Campton',
