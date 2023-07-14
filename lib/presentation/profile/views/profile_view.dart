@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class RandomView extends StatelessWidget {
-  const RandomView({super.key});
+class ProfileView extends StatelessWidget {
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Random View'),
+        title: const Text('Profile View'),
       ),
       body: const Center(
-        child: Text('Random View'),
+        child: Text('Profile View'),
       ),
     );
   }
