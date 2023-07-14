@@ -4,8 +4,9 @@ import '../../presentation/views.dart';
 class Router {
   static const landingView = '/landing-view';
   static const homeView = '/home-view';
-  static const randomView = '/random-view';
+  static const profileView = '/profile-view';
   static const onboardingView = '/onboarding-view';
+  static const tabsView = '/tabs-view';
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -18,11 +19,14 @@ class Router {
             currentUser: args['currentUser'],
           ),
         );
-      case randomView:
-        return MaterialPageRoute(builder: (_) => const RandomView());
+      case profileView:
+        return MaterialPageRoute(builder: (_) => const ProfileView());
 
       case onboardingView:
         return MaterialPageRoute(builder: (_) => const FormView());
+
+      case tabsView:
+        return MaterialPageRoute(builder: (_) => const TabsView());
 
       default:
         return null;
