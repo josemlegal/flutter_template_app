@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
-import 'package:flutter_template_app/data/user/repositories/user_repository_implementation.dart';
-import 'package:flutter_template_app/domain/user/models/user_model.dart';
-import 'package:flutter_template_app/domain/user/repositories/user_repository.dart';
+import 'package:flutter_template_app/user/data/repositories/user_repository_implementation.dart';
+import 'package:flutter_template_app/user/domain/models/user_model.dart';
+import 'package:flutter_template_app/user/domain/repositories/user_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 

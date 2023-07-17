@@ -1,4 +1,4 @@
-import 'package:flutter_template_app/domain/user/models/user_model.dart';
+import 'package:flutter_template_app/user/domain/models/user_model.dart';
 
 abstract class UserRepository {
   Future<User> getUser(String id);

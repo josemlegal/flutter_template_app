@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template_app/domain/user/models/user_model.dart';
+import 'package:flutter_template_app/user/domain/models/user_model.dart';
 
 class HomeView extends StatelessWidget {
   final User currentUser;

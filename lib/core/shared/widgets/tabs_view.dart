@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_template_app/core/theme/app_theme.dart';
-import 'package:flutter_template_app/presentation/views.dart';
+import 'package:flutter_template_app/views.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TabsView extends StatefulHookConsumerWidget {

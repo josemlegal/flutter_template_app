@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_template_app/core/ui/widgets/custom_text_button.dart';
-import 'package:flutter_template_app/presentation/auth/controllers/landing_view_controller.dart';
+import 'package:flutter_template_app/core/shared/widgets/custom_text_button.dart';
+import 'package:flutter_template_app/auth/presentation/controllers/landing_view_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LandingView extends HookConsumerWidget {

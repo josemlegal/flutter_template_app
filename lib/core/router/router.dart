@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../presentation/views.dart';
+import '../../views.dart';
 
 class Router {
   static const landingView = '/landing-view';

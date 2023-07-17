@@ -7,7 +7,7 @@ import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/core/mixins/validation_mixin.dart';
 import 'package:flutter_template_app/core/router/router.dart' as Router;
-import 'package:flutter_template_app/domain/user/repositories/user_repository.dart';
+import 'package:flutter_template_app/user/domain/repositories/user_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 

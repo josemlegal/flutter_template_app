@@ -2,8 +2,8 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
-import 'package:flutter_template_app/data/auth/data_sources/auth_data_source.dart';
-import 'package:flutter_template_app/domain/auth/repositories/auth_repository.dart';
+import 'package:flutter_template_app/auth/data/data_sources/auth_data_source.dart';
+import 'package:flutter_template_app/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImplementation implements AuthRepository {
   final FirebaseAuth _auth;

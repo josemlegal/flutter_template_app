@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/core/services/http_service.dart';
-import 'package:flutter_template_app/domain/auth/repositories/auth_repository.dart';
-import 'package:flutter_template_app/domain/user/models/user_model.dart';
-import 'package:flutter_template_app/domain/user/repositories/user_repository.dart';
+import 'package:flutter_template_app/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_template_app/user/domain/models/user_model.dart';
+import 'package:flutter_template_app/user/domain/repositories/user_repository.dart';
 
 class UserRepositoryImplementation implements UserRepository {
   final HttpService _httpService;

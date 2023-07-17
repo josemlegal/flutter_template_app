@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
-import 'package:flutter_template_app/data/auth/data_sources/auth_data_source.dart';
+import 'package:flutter_template_app/auth/data/data_sources/auth_data_source.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../../../domain/auth/models/apple_registration.dart';
+import '../../domain/models/apple_registration.dart';
 
 class AuthDataSourceRemote implements AuthDataSource {
   final FirebaseAuth _auth;

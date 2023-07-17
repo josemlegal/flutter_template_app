@@ -5,11 +5,11 @@ import 'package:flutter_template_app/application/services/shared_preferences_ser
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/core/mixins/validation_mixin.dart';
 import 'package:flutter_template_app/core/router/router.dart' as router;
-import 'package:flutter_template_app/domain/auth/repositories/auth_repository.dart';
-import 'package:flutter_template_app/domain/user/repositories/user_repository.dart';
+import 'package:flutter_template_app/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_template_app/user/domain/repositories/user_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
-import '../../../domain/user/models/user_model.dart';
+import '../../../user/domain/models/user_model.dart';
 
 class OnboardingViewController extends ChangeNotifier with Validation {
   final AuthRepository _authRepository;
