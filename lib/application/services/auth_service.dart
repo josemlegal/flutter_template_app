@@ -48,7 +48,7 @@ class AuthServiceImplementation implements AuthService {
     } else {
       await _authRepository.signInWithApple();
     }
-    // TODO: Check if user exists in database
+
     log('antes de checkear la db');
     final userExists =
         await _userRepository.getUser(_authRepository.currentUser!.uid);
