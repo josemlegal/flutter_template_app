@@ -29,7 +29,7 @@ class AuthRepositoryImplementation implements AuthRepository {
   String? get userEmail => _auth.currentUser?.email;
 
   @override
-  String get userId => _auth.currentUser!.uid;
+  String? get userId => _auth.currentUser?.uid;
 
   @override
   Future<void> signInWithEmail(

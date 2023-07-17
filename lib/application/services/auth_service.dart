@@ -35,7 +35,7 @@ class AuthServiceImplementation implements AuthService {
       return false;
     }
     await _authRepository.signInWithEmail(email: email, password: password);
-    await _userRepository.getUser(_authRepository.userId);
+    await _userRepository.getUser(_authRepository.userId!);
     return true;
   }
 
@@ -50,7 +50,8 @@ class AuthServiceImplementation implements AuthService {
     }
     // TODO: Check if user exists in database
     log('antes de checkear la db');
-    final userExists = await _userRepository.getUser(_authRepository.userId);
+    final userExists =
+        await _userRepository.getUser(_authRepository.currentUser!.uid);
     log('despues de la checkear la db');
     log(userExists.toJson().toString());
     if (userExists.name == '') {

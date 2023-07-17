@@ -12,5 +12,5 @@ abstract class AuthRepository {
   //Getters
   auth.User? get currentUser;
   String? get userEmail;
-  String get userId;
+  String? get userId;
 }
