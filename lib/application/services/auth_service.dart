@@ -5,6 +5,8 @@ import 'package:flutter_template_app/auth/domain/repositories/auth_repository.da
 import 'package:flutter_template_app/user/domain/repositories/user_repository.dart';
 import 'package:flutter_template_app/auth/presentation/controllers/landing_view_controller.dart';
 
+// TODO: WE SHOULD REMOVE THIS FILE AFTER WE FINISH THE MIGRATION TO THE USE CASES
+
 abstract class AuthService {
   // Future<bool> signInWithEmailAndPassword({
   //   required SignIn signInType,
