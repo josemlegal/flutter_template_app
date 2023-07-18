@@ -1,7 +1,4 @@
-import 'package:flutter_template_app/application/services/auth_service.dart';
 import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
-import 'package:flutter_template_app/auth/domain/use_cases/sign_in_with_email_and_pass.dart';
-import 'package:flutter_template_app/auth/domain/use_cases/sign_in_with_oauth.dart';
 import 'package:flutter_template_app/core/services/http_service.dart';
 import 'package:flutter_template_app/auth/data/data_sources/auth_data_source.dart';
 import 'package:flutter_template_app/auth/data/data_sources/auth_data_source_remote.dart';
@@ -46,28 +43,6 @@ void setupLocator() {
     () => UserRepositoryImplementation(
       httpService: locator<HttpService>(),
       authRepository: locator<AuthRepository>(),
-    ),
-  );
-
-  locator.registerLazySingleton<AuthService>(
-    () => AuthServiceImplementation(
-      authRepository: locator<AuthRepository>(),
-      userRepository: locator<UserRepository>(),
-    ),
-  );
-
-  // Use Cases
-  locator.registerLazySingleton<SignInWithEmailAndPasswordUseCase>(
-    () => SignInWithEmailAndPasswordUseCase(
-      authRepository: locator<AuthRepository>(),
-      userRepository: locator<UserRepository>(),
-    ),
-  );
-
-  locator.registerLazySingleton<SignInWithOAuthUseCase>(
-    () => SignInWithOAuthUseCase(
-      authRepository: locator<AuthRepository>(),
-      userRepository: locator<UserRepository>(),
     ),
   );
 }
