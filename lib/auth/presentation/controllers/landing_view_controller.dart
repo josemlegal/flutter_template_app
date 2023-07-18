@@ -28,8 +28,6 @@ class LandingViewController extends ChangeNotifier with Validation {
   // final AuthService _authService;
   final UserRepository _userRepository;
   final SharedPreferenceApi _sharedPreferenceApi;
-  final SignInWithEmailAndPasswordUseCase _signInWithEmailAndPasswordUseCase;
-  final SignInWithOAuthUseCase _signInWithOAuthUseCase;
 
   LandingViewController({
     required NavigationService navigationService,
@@ -37,16 +35,11 @@ class LandingViewController extends ChangeNotifier with Validation {
     // required AuthService authService,
     required UserRepository userRepository,
     required SharedPreferenceApi sharedPreferenceApi,
-    required SignInWithEmailAndPasswordUseCase
-        signInWithEmailAndPasswordUseCase,
-    required SignInWithOAuthUseCase signInWithOAuthUseCase,
   })  : _navigationService = navigationService,
         _snackbarService = snackbarService,
         // _authService = authService,
         _userRepository = userRepository,
-        _sharedPreferenceApi = sharedPreferenceApi,
-        _signInWithEmailAndPasswordUseCase = signInWithEmailAndPasswordUseCase,
-        _signInWithOAuthUseCase = signInWithOAuthUseCase;
+        _sharedPreferenceApi = sharedPreferenceApi;
 
   //Flags
   bool isLoading = false;
@@ -85,7 +78,7 @@ class LandingViewController extends ChangeNotifier with Validation {
 
     isLoading = true;
     try {
-      final userExists = await _signInWithEmailAndPasswordUseCase.call(
+      final userExists = await signInWithEmailAndPasswordUseCase.call(
           signInType: signInType, email: email, password: password);
 
       if (!userExists) {
@@ -120,15 +113,17 @@ class LandingViewController extends ChangeNotifier with Validation {
     isLoading = true;
     try {
       final userHasRegisteredBefore =
-          await _signInWithOAuthUseCase.call(signInType: signInType);
+          await signInWithOAuthUseCase.call(signInType: signInType);
       log("user registrado => $userHasRegisteredBefore");
       if (!userHasRegisteredBefore) {
         await _sharedPreferenceApi.setShowHomeOnboarding(val: true);
         // await _sharedPreferenceApi.setShowSearchOnboarding(val: true);
         _navigationService.clearStackAndShow(Router.Router.onboardingView);
+        isLoading = false;
       } else {
         _navigationService.clearStackAndShow(Router.Router.homeView,
             arguments: {'currentUser': _userRepository.currentUser});
+        isLoading = false;
       }
     } on CustomError catch (e) {
       isLoading = false;
@@ -150,9 +145,6 @@ final landingViewControllerProvider =
       // authService: locator<AuthService>(),
       userRepository: locator<UserRepository>(),
       sharedPreferenceApi: locator<SharedPreferenceApi>(),
-      signInWithEmailAndPasswordUseCase:
-          locator<SignInWithEmailAndPasswordUseCase>(),
-      signInWithOAuthUseCase: locator<SignInWithOAuthUseCase>(),
     );
   },
 );
