@@ -12,6 +12,7 @@ class SignInWithOAuthUseCase {
       {required this.authRepository, required this.userRepository});
 
   Future<bool> call({required SocialSignIn signInType}) async {
+    // TODO: ADD TRY CATCH BLOCK
     if (signInType == SocialSignIn.GoogleSignIn) {
       log('Google Sign In');
       await authRepository.signInWithGoogle();
