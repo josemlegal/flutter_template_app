@@ -10,7 +10,7 @@ abstract class AuthDataSource {
   // String? get userEmail;
 
   // String? get avatarUrl;
-  // Future<void> sendPasswordResetEmail({required String email});
+  Future<void> sendPasswordResetEmail({required String email});
   // Future<String> getIdToken();
   Future<void> sendEmailVerificationLink();
   Future<bool> checkEmailVerification();
