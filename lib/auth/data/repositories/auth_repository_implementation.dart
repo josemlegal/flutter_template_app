@@ -64,6 +64,14 @@ class AuthRepositoryImplementation implements AuthRepository {
 
   @override
   Future<void> logout() async => await _call(() => _dataSource.logout());
+
+  @override
+  Future<bool> checkEmailVerification() async =>
+      await _call(() => _dataSource.checkEmailVerification());
+
+  @override
+  Future<void> sendEmailVerificationLink() async =>
+      await _call(() => _dataSource.sendEmailVerificationLink());
 }
 
 Future<T> _call<T>(Future<T> Function() function) async {
