@@ -132,7 +132,7 @@ class LandingViewController extends ChangeNotifier with Validation {
   }
 
   void navigateToForgotPassword() {
-    _navigationService.navigateTo('forgot-password-view');
+    _navigationService.navigateTo('/forgot-password-view');
   }
 }
 

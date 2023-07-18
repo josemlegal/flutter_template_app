@@ -72,6 +72,10 @@ class AuthRepositoryImplementation implements AuthRepository {
   @override
   Future<void> sendEmailVerificationLink() async =>
       await _call(() => _dataSource.sendEmailVerificationLink());
+
+  @override
+  Future<void> sendPasswordResetEmail({required String email}) async =>
+      await _call(() => _dataSource.sendPasswordResetEmail(email: email));
 }
 
 Future<T> _call<T>(Future<T> Function() function) async {

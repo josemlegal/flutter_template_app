@@ -124,6 +124,11 @@ class AuthDataSourceRemote implements AuthDataSource {
   }
 
   @override
+  Future<void> sendPasswordResetEmail({required String email}) async {
+    return await _call(() => _auth.sendPasswordResetEmail(email: email));
+  }
+
+  @override
   Future<void> sendEmailVerificationLink() async {
     return await _call(() => _auth.currentUser!.sendEmailVerification());
   }
