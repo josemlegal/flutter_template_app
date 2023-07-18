@@ -8,22 +8,40 @@ class HomeView extends HookConsumerWidget {
   const HomeView({super.key, required this.currentUser});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final homeViewController = ref.read(homeViewProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(currentUser.name),
       ),
-      body: Column(
-        children: [
-          const Center(
-            child: Text('Home View is working'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              ref.read(homeViewProvider).onLogOut();
-            },
-            child: const Text('LOGOUT'),
-          )
-        ],
+      body: Center(
+        child: Column(
+          children: [
+            const Text('Home View is working'),
+            homeViewController.isLoading
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: () {
+                      homeViewController.checkEmailVerification();
+                    },
+                    child: const Text('Verificar email'),
+                  ),
+            homeViewController.isResendingEmailLink
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: () {
+                      homeViewController.sendEmailLink();
+                    },
+                    child: const Text('Reenviar email'),
+                  ),
+            ElevatedButton(
+              onPressed: () {
+                ref.read(homeViewProvider).onLogOut();
+              },
+              child: const Text('LOGOUT'),
+            ),
+          ],
+        ),
       ),
     );
   }
