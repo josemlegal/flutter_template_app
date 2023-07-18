@@ -13,13 +13,17 @@ class SignInWithEmailAndPasswordUseCase {
       {required SignIn signInType,
       required String email,
       required String password}) async {
-    // TODO: ADD TRY CATCH BLOCK
-    if (signInType == SignIn.Signup) {
-      await authRepository.signUpWithEmail(email: email, password: password);
-      return false;
+    try {
+      if (signInType == SignIn.Signup) {
+        await authRepository.signUpWithEmail(email: email, password: password);
+        return false;
+      }
+      await authRepository.signInWithEmail(email: email, password: password);
+      await userRepository.getUser(authRepository.userId!);
+      return true;
+    } catch (e) {
+      // TODO: handle exception
+      rethrow;
     }
-    await authRepository.signInWithEmail(email: email, password: password);
-    await userRepository.getUser(authRepository.userId!);
-    return true;
   }
 }

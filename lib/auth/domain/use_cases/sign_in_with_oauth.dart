@@ -12,22 +12,26 @@ class SignInWithOAuthUseCase {
       {required this.authRepository, required this.userRepository});
 
   Future<bool> call({required SocialSignIn signInType}) async {
-    // TODO: ADD TRY CATCH BLOCK
-    if (signInType == SocialSignIn.GoogleSignIn) {
-      log('Google Sign In');
-      await authRepository.signInWithGoogle();
-      log('despues del sign in');
-    } else {
-      await authRepository.signInWithApple();
-    }
+    try {
+      if (signInType == SocialSignIn.GoogleSignIn) {
+        log('Google Sign In');
+        await authRepository.signInWithGoogle();
+        log('despues del sign in');
+      } else {
+        await authRepository.signInWithApple();
+      }
 
-    log('antes de checkear la db');
-    final userExists = await userRepository.getUser(authRepository.userId!);
-    log('despues de la checkear la db');
-    log(userExists.toJson().toString());
-    if (userExists.name == '') {
-      return false;
+      log('antes de checkear la db');
+      final userExists = await userRepository.getUser(authRepository.userId!);
+      log('despues de la checkear la db');
+      log(userExists.toJson().toString());
+      if (userExists.name == '') {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      // TODO: handle exception
+      rethrow;
     }
-    return true;
   }
 }
