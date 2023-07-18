@@ -10,6 +10,9 @@ abstract class AuthRepository {
   Future<void> signInWithApple();
   Future<void> logout();
 
+  //Methods for password reset
+  Future<void> sendPasswordResetEmail({required String email});
+
   //Methods for email verification
   Future<bool> checkEmailVerification();
   Future<void> sendEmailVerificationLink();
