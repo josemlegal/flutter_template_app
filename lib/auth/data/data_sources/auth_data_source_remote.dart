@@ -115,6 +115,19 @@ class AuthDataSourceRemote implements AuthDataSource {
     await _call(() => _auth.signInWithCredential(oAuthCredential));
   }
 
+  @override
+  Future<bool> checkEmailVerification() async {
+    return await _call(() async {
+      await _auth.currentUser!.reload();
+      return _auth.currentUser!.emailVerified;
+    });
+  }
+
+  @override
+  Future<void> sendEmailVerificationLink() async {
+    return await _call(() => _auth.currentUser!.sendEmailVerification());
+  }
+
   Future<T> _call<T>(Future<T> Function() function) async {
     try {
       return await function();
