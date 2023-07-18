@@ -22,5 +22,7 @@ abstract class AuthDataSource {
   Future<void> signInWithGoogle();
   Future<String> signInWithApple();
 
+  Future<void> logout();
+
   // Future<void> deleteUserAccount();
 }

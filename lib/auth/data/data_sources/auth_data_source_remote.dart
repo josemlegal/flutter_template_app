@@ -47,6 +47,14 @@ class AuthDataSourceRemote implements AuthDataSource {
   }
 
   @override
+  Future<void> logout() async {
+    return await _call(() async {
+      await _googleSignIn.signOut();
+      await _auth.signOut();
+    });
+  }
+
+  @override
   Future<String> signInWithApple() async {
     try {
       final AuthorizationCredentialAppleID result =
