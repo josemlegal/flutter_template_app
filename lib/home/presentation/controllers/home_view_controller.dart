@@ -16,12 +16,12 @@ class HomeViewController extends ChangeNotifier {
   final SnackbarService _snackbarService;
 
   // States
-  final User? _currentUser = null;
+  User? _currentUser;
+  // Flags
   bool _isResendingEmailLink = false;
   bool isLoading = false;
 
   // Getters
-  User get currentUser => _currentUser!;
 
   HomeViewController({
     required NavigationService navigationService,
@@ -35,10 +35,11 @@ class HomeViewController extends ChangeNotifier {
 
   bool get isResendingEmailLink => _isResendingEmailLink;
 
+  User? get currentUser => _currentUser;
   Future<void> getCurrentUser() async {
     try {
-      await _userRepository.getUser(_userRepository.userId!);
-      goToHomeView();
+      _currentUser = await _userRepository.getUser(_userRepository.userId!);
+      notifyListeners();
     } catch (err) {
       print(err);
     }
