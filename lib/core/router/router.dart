@@ -16,11 +16,8 @@ class Router {
       case landingView:
         return MaterialPageRoute(builder: (_) => const LandingView());
       case homeView:
-        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => HomeView(
-            currentUser: args['currentUser'],
-          ),
+          builder: (_) => const HomeView(),
         );
       case profileView:
         return MaterialPageRoute(builder: (_) => const ProfileView());
