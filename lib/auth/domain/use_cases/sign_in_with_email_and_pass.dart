@@ -20,7 +20,11 @@ class SignInWithEmailAndPasswordUseCase {
         return false;
       }
       await authRepository.signInWithEmail(email: email, password: password);
-      await userRepository.getUser(authRepository.userId!);
+      final userExistOnDB =
+          await userRepository.getUser(authRepository.userId!);
+      if (userExistOnDB.name == '') {
+        return false;
+      }
       return true;
     } catch (e) {
       // TODO: handle exception
