@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
 import 'package:flutter_template_app/auth/domain/use_cases/sign_in_with_email_and_pass.dart';
@@ -77,6 +75,7 @@ class LandingViewController extends ChangeNotifier with Validation {
     }
 
     isLoading = true;
+    notifyListeners();
     try {
       final userExists = await signInWithEmailAndPasswordUseCase.call(
           signInType: signInType, email: email, password: password);
@@ -86,8 +85,11 @@ class LandingViewController extends ChangeNotifier with Validation {
       } else {
         _navigationService.clearStackAndShow(Router.Router.homeView);
       }
+      isLoading = false;
+      notifyListeners();
     } on CustomError catch (e) {
       isLoading = false;
+      notifyListeners();
       _snackbarService.showSnackbar(message: e.message);
     }
   }
@@ -111,10 +113,10 @@ class LandingViewController extends ChangeNotifier with Validation {
     // TODO: FIND A BETTER WAY TO INITIALIZE THIS
     await _sharedPreferenceApi.init();
     isLoading = true;
+    notifyListeners();
     try {
       final userHasRegisteredBefore =
           await signInWithOAuthUseCase.call(signInType: signInType);
-      log("user registrado => $userHasRegisteredBefore");
       if (!userHasRegisteredBefore) {
         await _sharedPreferenceApi.setShowHomeOnboarding(val: true);
         // await _sharedPreferenceApi.setShowSearchOnboarding(val: true);
@@ -125,6 +127,7 @@ class LandingViewController extends ChangeNotifier with Validation {
             arguments: {'currentUser': _userRepository.currentUser});
         isLoading = false;
       }
+      notifyListeners();
     } on CustomError catch (e) {
       isLoading = false;
       _snackbarService.showSnackbar(message: e.message);
