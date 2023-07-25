@@ -33,6 +33,11 @@ class AuthDataSourceRemote implements AuthDataSource {
         _sharedPreferences = sharedPreferences ?? SharedPreferencesService();
 
   @override
+  Future<String> getIdToken() async {
+    return await _call(() => _auth.currentUser!.getIdToken());
+  }
+
+  @override
   Future<void> signInWithEmail(
       {required String email, required String password}) async {
     return await _call(() =>
