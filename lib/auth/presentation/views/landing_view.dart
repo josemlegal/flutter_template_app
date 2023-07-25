@@ -4,11 +4,24 @@ import 'package:flutter_template_app/core/shared/widgets/custom_text_button.dart
 import 'package:flutter_template_app/auth/presentation/controllers/landing_view_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class LandingView extends HookConsumerWidget {
+class LandingView extends StatefulHookConsumerWidget {
   const LandingView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _LandingViewState();
+}
+
+class _LandingViewState extends ConsumerState<LandingView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(landingViewControllerProvider).onStartUp();
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final landingViewController = ref.read(landingViewControllerProvider);
     return DefaultTabController(
       length: 2,
