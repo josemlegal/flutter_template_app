@@ -123,8 +123,7 @@ class LandingViewController extends ChangeNotifier with Validation {
         _navigationService.clearStackAndShow(Router.Router.onboardingView);
         isLoading = false;
       } else {
-        _navigationService.clearStackAndShow(Router.Router.homeView,
-            arguments: {'currentUser': _userRepository.currentUser});
+        _navigationService.clearStackAndShow(Router.Router.tabsView);
         isLoading = false;
       }
       notifyListeners();

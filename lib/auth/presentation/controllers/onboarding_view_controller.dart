@@ -80,16 +80,8 @@ class OnboardingViewController extends ChangeNotifier with Validation {
 
     log(newUserModel.toJson().toString());
     await _userRepository.createNewUser(newUserModel);
-    // TODO: GET THE NEW USER FROM THE DATABASE
-    final currentUser =
-        await _userRepository.getUser(_authRepository.currentUser!.uid);
 
-    await _navigationService.navigateTo(
-      router.Router.homeView,
-      arguments: {
-        'currentUser': currentUser,
-      },
-    );
+    await _navigationService.navigateTo(router.Router.tabsView);
   }
 }
 

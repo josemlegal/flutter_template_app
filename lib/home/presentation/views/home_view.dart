@@ -27,44 +27,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
     final homeViewController = ref.watch(homeViewProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: homeViewController.currentUser == null
-            ? const CircularProgressIndicator()
-            : Text(
-                homeViewController.currentUser!.name,
-                style: const TextStyle(
-                  color: Colors.red,
-                ),
-              ),
-      ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Home View is working',
-            ),
-            homeViewController.isLoading
+            homeViewController.currentUser == null
                 ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: () {
-                      homeViewController.checkEmailVerification();
-                    },
-                    child: const Text('Verificar email'),
+                : Text(
+                    homeViewController.currentUser!.name,
+                    style: const TextStyle(
+                      color: Colors.red,
+                    ),
                   ),
-            homeViewController.isResendingEmailLink
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: () {
-                      homeViewController.sendEmailLink();
-                    },
-                    child: const Text('Reenviar email'),
-                  ),
-            ElevatedButton(
-              onPressed: () {
-                ref.read(homeViewProvider).onLogOut();
-              },
-              child: const Text('LOGOUT'),
-            ),
           ],
         ),
       ),
