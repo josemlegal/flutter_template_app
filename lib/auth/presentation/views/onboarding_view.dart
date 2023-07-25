@@ -13,22 +13,16 @@ class FormView extends StatefulHookConsumerWidget {
 class _FormViewState extends ConsumerState<FormView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        leading: const FlutterLogo(),
-      ),
+    return const Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 100,
+            ),
             Center(
-              child: SizedBox.fromSize(
-                size: const Size(200, 200),
-                child: const _FormWidget(),
-              ),
+              child: _FormWidget(),
             ),
           ],
         ),
@@ -46,18 +40,30 @@ class _FormWidget extends HookConsumerWidget {
     final onboardingViewController = ref.read(onboardingViewProvider);
     return Form(
       key: formKey,
-      child: Column(children: [
-        TextFormField(
-          onChanged: (value) {
-            onboardingViewController.updateName(value);
-          },
+      child: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: Column(
+          children: [
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Name/Lastname',
+              ),
+              onChanged: (value) {
+                onboardingViewController.updateName(value);
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                onboardingViewController.submitForm();
+              },
+              child: const Text('SUBMIT'),
+            )
+          ],
         ),
-        ElevatedButton(
-            onPressed: () {
-              onboardingViewController.submitForm();
-            },
-            child: const Text('SUBMIT'))
-      ]),
+      ),
     );
   }
 }
