@@ -64,7 +64,7 @@ class LandingViewController extends ChangeNotifier with Validation {
 //TODO: REFACTOR THE METHOD AND PLACE IT WHERE IT SHOULD BE
   Future<void> onStartUp() async {
     if (_authRepository.currentUser != null) {
-      _navigationService.clearStackAndShow(Router.Router.homeView);
+      _navigationService.clearStackAndShow(Router.Router.tabsView);
     }
   }
 
@@ -94,7 +94,7 @@ class LandingViewController extends ChangeNotifier with Validation {
       if (!userExists) {
         _navigationService.clearStackAndShow(Router.Router.onboardingView);
       } else {
-        _navigationService.clearStackAndShow(Router.Router.homeView);
+        _navigationService.clearStackAndShow(Router.Router.tabsView);
       }
       isLoading = false;
       notifyListeners();

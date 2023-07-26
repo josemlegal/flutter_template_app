@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_template_app/core/theme/app_theme.dart';
 import 'firebase_options.dart';
@@ -25,13 +26,16 @@ void main() async {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
+  bool get isUserLoggedIn => FirebaseAuth.instance.currentUser != null;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme().getTheme(),
       debugShowCheckedModeBanner: false,
       navigatorKey: services.StackedService.navigatorKey,
-      initialRoute: router.Router.landingView,
+      initialRoute:
+          isUserLoggedIn ? router.Router.tabsView : router.Router.landingView,
       onGenerateRoute: router.Router.generateRoute,
     );
   }
