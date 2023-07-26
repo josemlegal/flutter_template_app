@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:dio/dio.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as f;
 import 'package:equatable/equatable.dart';

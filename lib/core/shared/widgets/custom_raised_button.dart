@@ -13,6 +13,7 @@ class CustomRaisedButton extends StatelessWidget {
   final Size? size;
 
   const CustomRaisedButton({
+    super.key,
     required this.child,
     required this.color,
     this.borderRadius = 50,

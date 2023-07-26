@@ -4,6 +4,7 @@ import 'custom_raised_button.dart';
 
 class CustomTextButton extends CustomRaisedButton {
   CustomTextButton({
+    super.key,
     required String text,
     Color color = Colors.orange,
     Color textColor = Colors.black,

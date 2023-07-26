@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_template_app/auth/presentation/controllers/onboarding_view_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

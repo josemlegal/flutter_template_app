@@ -1,13 +1,12 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
-import 'package:flutter_template_app/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_template_app/auth/domain/use_cases/sign_in_with_email_and_pass.dart';
 import 'package:flutter_template_app/auth/domain/use_cases/sign_in_with_oauth.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
 import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/core/mixins/validation_mixin.dart';
-import 'package:flutter_template_app/core/router/router.dart' as Router;
-import 'package:flutter_template_app/user/domain/repositories/user_repository.dart';
+import 'package:flutter_template_app/core/router/router.dart' as router;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -24,24 +23,12 @@ enum SignIn {
 class LandingViewController extends ChangeNotifier with Validation {
   final NavigationService _navigationService;
   final SnackbarService _snackbarService;
-  final AuthRepository _authRepository;
-  // final AuthService _authService;
-  final UserRepository _userRepository;
-  final SharedPreferenceApi _sharedPreferenceApi;
 
   LandingViewController({
     required NavigationService navigationService,
     required SnackbarService snackbarService,
-    required AuthRepository authRepository,
-    // required AuthService authService,
-    required UserRepository userRepository,
-    required SharedPreferenceApi sharedPreferenceApi,
   })  : _navigationService = navigationService,
-        _snackbarService = snackbarService,
-        _authRepository = authRepository,
-        // _authService = authService,
-        _userRepository = userRepository,
-        _sharedPreferenceApi = sharedPreferenceApi;
+        _snackbarService = snackbarService;
 
   //Flags
   bool isLoading = false;
@@ -60,13 +47,6 @@ class LandingViewController extends ChangeNotifier with Validation {
   String get confirmPassword => _confirmPassword;
   String get confirmPasswordValidationMessage =>
       _confirmPasswordValidationMessage;
-
-//TODO: REFACTOR THE METHOD AND PLACE IT WHERE IT SHOULD BE
-  Future<void> onStartUp() async {
-    if (_authRepository.currentUser != null) {
-      _navigationService.clearStackAndShow(Router.Router.tabsView);
-    }
-  }
 
   Future<void> submitLoginForm({required SignIn signInType}) async {
     _emailValidationMessage = validateEmail(_email);
@@ -92,9 +72,9 @@ class LandingViewController extends ChangeNotifier with Validation {
           signInType: signInType, email: email, password: password);
 
       if (!userExists) {
-        _navigationService.clearStackAndShow(Router.Router.onboardingView);
+        _navigationService.clearStackAndShow(router.Router.onboardingView);
       } else {
-        _navigationService.clearStackAndShow(Router.Router.tabsView);
+        _navigationService.clearStackAndShow(router.Router.tabsView);
       }
       isLoading = false;
       notifyListeners();
@@ -121,20 +101,16 @@ class LandingViewController extends ChangeNotifier with Validation {
   }
 
   Future<void> signinWithOAuth(SocialSignIn signInType) async {
-    // TODO: FIND A BETTER WAY TO INITIALIZE THIS
-    await _sharedPreferenceApi.init();
     isLoading = true;
     notifyListeners();
     try {
       final userHasRegisteredBefore =
           await signInWithOAuthUseCase.call(signInType: signInType);
       if (!userHasRegisteredBefore) {
-        await _sharedPreferenceApi.setShowHomeOnboarding(val: true);
-        // await _sharedPreferenceApi.setShowSearchOnboarding(val: true);
-        _navigationService.clearStackAndShow(Router.Router.onboardingView);
+        _navigationService.clearStackAndShow(router.Router.onboardingView);
         isLoading = false;
       } else {
-        _navigationService.clearStackAndShow(Router.Router.tabsView);
+        _navigationService.clearStackAndShow(router.Router.tabsView);
         isLoading = false;
       }
       notifyListeners();
@@ -155,10 +131,6 @@ final landingViewControllerProvider =
     return LandingViewController(
       navigationService: locator<NavigationService>(),
       snackbarService: locator<SnackbarService>(),
-      authRepository: locator<AuthRepository>(),
-      // authService: locator<AuthService>(),
-      userRepository: locator<UserRepository>(),
-      sharedPreferenceApi: locator<SharedPreferenceApi>(),
     );
   },
 );

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_template_app/application/services/shared_preferences_service.dart';
 import 'package:flutter_template_app/core/theme/app_theme.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,8 @@ void main() async {
   );
   await dotenv.load();
   setupLocator();
+  final sharedPreferences = locator<SharedPreferenceApi>();
+  await sharedPreferences.init();
   setupSnackbarUi();
   runApp(
     const ProviderScope(child: MainApp()),

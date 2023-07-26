@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template_app/auth/presentation/controllers/forgot_password_view_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_hooks/flutter_hooks.dart' show useTextEditingController;
 
 class ForgotPasswordView extends StatelessWidget {

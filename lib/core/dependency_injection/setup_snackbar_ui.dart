@@ -13,6 +13,7 @@ void setupSnackbarUi() {
       titleColor: Colors.black,
       mainButtonTextColor: Colors.blue,
       padding: const EdgeInsets.all(24),
+      snackPosition: SnackPosition.TOP,
     ),
   );
 }

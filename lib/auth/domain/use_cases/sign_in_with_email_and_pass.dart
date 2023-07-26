@@ -1,6 +1,7 @@
 import 'package:flutter_template_app/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_template_app/auth/presentation/controllers/landing_view_controller.dart';
 import 'package:flutter_template_app/core/dependency_injection/locator.dart';
+import 'package:flutter_template_app/core/error/error_handling.dart';
 import 'package:flutter_template_app/user/domain/repositories/user_repository.dart';
 
 class SignInWithEmailAndPasswordUseCase {
@@ -26,9 +27,12 @@ class SignInWithEmailAndPasswordUseCase {
         return false;
       }
       return true;
-    } catch (e) {
-      // TODO: handle exception
-      rethrow;
+    } on CustomError catch (e) {
+      throw CustomError(
+        errorType: e.errorType,
+        errorCode: e.errorCode,
+        message: e.message,
+      );
     }
   }
 }

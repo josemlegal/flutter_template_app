@@ -40,8 +40,11 @@ class ProfileViewController extends ChangeNotifier {
     try {
       _currentUser = await _userRepository.getUser(_userRepository.userId!);
       notifyListeners();
-    } catch (err) {
-      print(err);
+    } on CustomError catch (err) {
+      _snackbarService.showSnackbar(
+        message: err.message,
+        duration: const Duration(seconds: 3),
+      );
     }
   }
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template_app/profile/presentation/controllers/profile_view_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-// THIS IMPORT IS BEING USED, PLEASE DO NOT REMOVE
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 class ProfileView extends StatefulHookConsumerWidget {
   const ProfileView({Key? key}) : super(key: key);

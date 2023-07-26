@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
@@ -221,7 +223,7 @@ class DateCustomValidator implements TextInputFormatter {
       newValueModified = newValueModified + newValue.text[3];
     }
     if (newValue.text.length > 4) {
-      newValueModified = newValueModified + "/${newValue.text[4]}";
+      newValueModified = "$newValueModified/$newValue.text[4]";
     }
     if (newValue.text.length > 5) {
       newValueModified = newValueModified + newValue.text[5];

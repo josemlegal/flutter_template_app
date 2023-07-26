@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// this import is being used, please, do not remove
+// ignore: depend_on_referenced_packages
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_template_app/core/shared/widgets/custom_text_button.dart';
 import 'package:flutter_template_app/auth/presentation/controllers/landing_view_controller.dart';
@@ -12,14 +14,6 @@ class LandingView extends StatefulHookConsumerWidget {
 }
 
 class _LandingViewState extends ConsumerState<LandingView> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(landingViewControllerProvider).onStartUp();
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final landingViewController = ref.read(landingViewControllerProvider);
@@ -301,7 +295,7 @@ class _LandingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
       height: 40,
       child: OutlinedButton(
