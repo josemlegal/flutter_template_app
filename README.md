@@ -53,19 +53,45 @@ void main() async {
 In this file, you need to define the configuration options for Firebase. Use the information found in the `google-services.json` (for Android) or `GoogleService-Info.plist` (for iOS) file you downloaded in step 1. The content may vary depending on the Firebase SDK you are using, but here's a basic example:
 
 ```dart
-import 'package:firebase_core/firebase_core.dart';
+static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['ANDROID_API_KEY'] ?? "",
+    appId: dotenv.env['ANDROID_APP_ID'] ?? "",
+    messagingSenderId: dotenv.env['ANDROID_SENDER_ID'] ?? "",
+    projectId: dotenv.env['ANDROID_PROJECT_ID'] ?? "",
+    storageBucket: dotenv.env['ANDROID_STORAGE_BUCKET'] ?? "",
+  );
 
-class FirebaseOptionsProvider {
-  static FirebaseOptions getOptions() {
-    return FirebaseOptions(
-      appId: 'your_app_id',
-      apiKey: 'your_api_key',
-      projectId: 'your_project_id',
-      messagingSenderId: 'your_messaging_sender_id',
-      // You can add more configurations here as per your project's needs
-    );
-  }
-}
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['IOS_API_KEY'] ?? "",
+    appId: dotenv.env['IOS_APP_ID'] ?? "",
+    messagingSenderId: dotenv.env['IOS_SENDER_ID'] ?? "",
+    projectId: dotenv.env['IOS_PROJECT_ID'] ?? "",
+    storageBucket: dotenv.env['IOS_STORAGE_BUCKET'] ?? "",
+    iosClientId: dotenv.env['IOS_CLIENT_ID'] ?? "",
+    iosBundleId: dotenv.env['IOS_BUNDLE_ID'] ?? "",
+  );
+```
+
+You can check the .env.template file to match the variable names.
+```dart
+**SERVER CONFIGS**
+NGROK_URL=
+
+**FIREBASE ANDROID CONFIG**
+ANDROID_API_KEY=''
+ANDROID_APP_ID=''
+ANDROID_SENDER_ID=''
+ANDROID_PROJECT_ID=''
+ANDROID_STORAGE_BUCKET=''
+
+**FIREBASE IOS CONFIG**
+IOS_API_KEY=''
+IOS_APP_ID=''
+IOS_SENDER_ID=''
+IOS_PROJECT_ID=''
+IOS_STORAGE_BUCKET=''
+IOS_CLIENT_ID=''
+IOS_BUNDLE_ID=''
 ```
 
 #### **Use the configuration options in your application:**
