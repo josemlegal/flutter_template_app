@@ -12,11 +12,11 @@ import 'package:stacked_services/stacked_services.dart' as services;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
+  await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await dotenv.load();
   setupLocator();
   final sharedPreferences = locator<SharedPreferenceApi>();
   await sharedPreferences.init();
