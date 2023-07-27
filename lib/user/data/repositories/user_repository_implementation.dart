@@ -23,9 +23,12 @@ class UserRepositoryImplementation implements UserRepository {
   User? get currentUser => _currentUser;
 
   @override
-  Future<User> getUser(String id) {
+  Future<User?> getUser(String id) {
     return _call(() async {
       final response = await _httpService.dio.get("/api/users/$id");
+      if (response.data == null) {
+        return null;
+      }
       _currentUser = User.fromJson(response.data);
       return _currentUser!;
     });
