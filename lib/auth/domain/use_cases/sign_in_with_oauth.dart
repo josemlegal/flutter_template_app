@@ -26,8 +26,7 @@ class SignInWithOAuthUseCase {
       log('antes de checkear la db');
       final userExists = await userRepository.getUser(authRepository.userId!);
       log('despues de la checkear la db');
-      log(userExists.toJson().toString());
-      if (userExists.name == '') {
+      if (userExists == null) {
         return false;
       }
       return true;

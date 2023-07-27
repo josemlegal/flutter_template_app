@@ -23,7 +23,7 @@ class SignInWithEmailAndPasswordUseCase {
       await authRepository.signInWithEmail(email: email, password: password);
       final userExistOnDB =
           await userRepository.getUser(authRepository.userId!);
-      if (userExistOnDB.name == '') {
+      if (userExistOnDB == null) {
         return false;
       }
       return true;
