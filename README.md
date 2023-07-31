@@ -1,6 +1,6 @@
 # FLUTTER APP TEMPLATE
 
-This template works like an template app that you can just add stuff and still works. Its connected to a [Node TypeScript server](https://github.com/doggbmx/server-template) that holds the user database and anything related to the business model.
+This template works like a template app that you can just add stuff and still works. Its connected to a [Node TypeScript server](https://github.com/doggbmx/server-template) that holds the user database and anything related to the business model.
 
 ### List of techs used:
 
